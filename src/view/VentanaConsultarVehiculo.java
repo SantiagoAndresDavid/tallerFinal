@@ -78,7 +78,7 @@ public class VentanaConsultarVehiculo extends JDialog {
         List<Vehiculo> listado = this.gestor.leer();
         this.modelo.setNumRows(0);
         for (Vehiculo vehiculo : listado) {
-            if (vehiculo.getDisponibilidad().equalsIgnoreCase("hablitado")) {
+            if (vehiculo.getDisponibilidad().equalsIgnoreCase("habilitado")) {
                 String linea[] = {vehiculo.getTipo(), vehiculo.getnSerie(), vehiculo.getnAsientos(), vehiculo.getModelo(),
                         vehiculo.getAño()};
                 this.modelo.addRow(linea);
