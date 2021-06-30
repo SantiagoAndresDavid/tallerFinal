@@ -1,24 +1,25 @@
 package view;
 
 import dominio.Vehiculo;
-import negocio.RegistroUsuarios;
+import javafx.scene.image.Image;
 import negocio.RegistroVehiculos;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.File;
 
 public class VentanaRegistrarVehiculo extends JDialog {
-    private JLabel lTipo, lnSerie, lnAsientos, lModelo, lAño, lDisponibilidad;
+    private JLabel lTipo, lnSerie, lnAsientos, lModelo, lAño, lDisponibilidad,lImg;
     private JTextField tTipo, tnSerie, tnAsientos, tModelo, tAño;
-    private JRadioButton rHablitado, rDesabilitado,rCarro,rAutobus,rMoto,rCamion;
-    private JButton bGuardar;
+    private JRadioButton rHablitado, rDesabilitado, rMinibus, rAutobusDosPisos, rAutobusArticulado, rAutocar;
+    private JButton bGuardar,bsubir;
     private Container contenedor;
     private JPanel panelDatos, panelBotones;
     private RegistroVehiculos gestor;
     private ButtonGroup grupoRadio;
+    private ImageIcon subir;
 
 
     public VentanaRegistrarVehiculo(JFrame frame, boolean bln) {
@@ -51,22 +52,23 @@ public class VentanaRegistrarVehiculo extends JDialog {
         this.lModelo = new JLabel("Modelo: ");
         this.lAño = new JLabel("Año: ");
         this.lDisponibilidad = new JLabel("Disponibilidad: ");
+        this.lImg = new JLabel("Imagen");
 
         this.tnSerie= new JTextField(null);
         this.tnAsientos = new JTextField(null);
         this.tModelo = new JTextField(null);
         this.tAño = new JTextField(null);
 
-        this.rCarro = new JRadioButton("carro");
-        this.rCarro.setSelected(true);
-        this.rMoto = new JRadioButton("moto");
-        this.rAutobus = new JRadioButton("autobus");
-        this.rCamion = new JRadioButton("camion");
+        this.rMinibus = new JRadioButton("Minibus");
+        this.rMinibus.setSelected(true);
+        this.rAutobusArticulado = new JRadioButton("Autobús articulado");
+        this.rAutobusDosPisos = new JRadioButton("Autobús de dos pisos");
+        this.rAutocar = new JRadioButton("Autocar");
         this.grupoRadio = new ButtonGroup();
-        this.grupoRadio.add(this.rCarro);
-        this.grupoRadio.add(this.rMoto);
-        this.grupoRadio.add(this.rAutobus);
-        this.grupoRadio.add(this.rCamion);
+        this.grupoRadio.add(this.rMinibus);
+        this.grupoRadio.add(this.rAutobusArticulado);
+        this.grupoRadio.add(this.rAutobusDosPisos);
+        this.grupoRadio.add(this.rAutocar);
 
 
         this.rHablitado = new JRadioButton("Habilitado");
@@ -78,11 +80,10 @@ public class VentanaRegistrarVehiculo extends JDialog {
 
         JPanel paneTipo = new JPanel();
         paneTipo.setLayout(new FlowLayout());
-
-        paneTipo.add(this.rCarro);
-        paneTipo.add(this.rMoto);
-        paneTipo.add(this.rAutobus);
-        paneTipo.add(this.rCamion);
+        paneTipo.add(this.rMinibus);
+        paneTipo.add(this.rAutobusArticulado);
+        paneTipo.add(this.rAutobusDosPisos);
+        paneTipo.add(this.rAutocar);
 
 
         this.panelDatos.add(this.lTipo);
@@ -100,47 +101,54 @@ public class VentanaRegistrarVehiculo extends JDialog {
         this.panelDatos.add(this.lAño);
         this.panelDatos.add(this.tAño);
 
-        JPanel panelOpciones = new JPanel();
-        panelOpciones.setLayout(new FlowLayout());
-
-        panelOpciones.add(this.rHablitado);
-        panelOpciones.add(this.rDesabilitado);
-
-
-        this.panelDatos.add(this.lDisponibilidad);
-        this.panelDatos.add(panelOpciones);
         this.contenedor.add(this.panelDatos, BorderLayout.CENTER);
 
     }
 
+
+
     public void inicializarPanelBotones(){
+        this.bsubir = new JButton("subir");
+        this.bsubir.addActionListener(new clickBotonsubir());
+        this.bsubir.setEnabled(true);
         this.bGuardar = new JButton("Guardar");
         this.bGuardar.addActionListener(new ClickBotonGuardar());
         this.bGuardar.setEnabled(true);
         this.panelBotones = new JPanel();
         this.panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        this.panelBotones.setLayout(new GridLayout(1, 1, 5, 5));
+        this.panelBotones.setLayout(new GridLayout(2, 1, 5, 5));
+        this.panelBotones.add(this.bsubir);
         this.panelBotones.add(this.bGuardar);
         this.contenedor.add(this.panelBotones, BorderLayout.SOUTH);
     }
 
+    public ImageIcon subirImagen(){
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File file = chooser.getSelectedFile();
+        this.subir = new ImageIcon(file.getAbsolutePath());
+        return subir;
+    }
+
     public Vehiculo leerComponentes() {
-        String tipo = "";
-        if(rCarro.isSelected()){
-             tipo = "carro";
-        }else if (rMoto.isSelected()){
-             tipo = "moto";
-        }else if (rAutobus.isSelected()){
-             tipo = "moto";
-        }else if (rCamion.isSelected()){
-            tipo = "camion";
+         String tipo = "";
+        if(rMinibus.isSelected()){
+             tipo = "Minibus";
+        }else if (rAutobusArticulado.isSelected()){
+             tipo = "Autobús articulado";
+        }else if (rAutobusDosPisos.isSelected()){
+             tipo = "Autobús de dos pisos";
+        }else if (rAutocar.isSelected()){
+            tipo = "Autocar";
         }
+
         String serie = this.tnSerie.getText();
         String asientos = this.tnAsientos.getText();
         String modelo = this.tModelo.getText();
         String año = this.tAño.getText();
         String disponibilidad = this.rHablitado.isSelected() ? "habilitado" : "desabilitado";
-        Vehiculo Vehiculo = new Vehiculo(tipo,serie,asientos,modelo,año,disponibilidad);
+        ImageIcon imagen = this.subir;
+        Vehiculo Vehiculo = new Vehiculo(tipo,serie,asientos,modelo,año,disponibilidad,imagen);
         return Vehiculo;
     }
     public void ventanaMsg(String msg, String titulo, int tipo) {
@@ -148,20 +156,22 @@ public class VentanaRegistrarVehiculo extends JDialog {
     }
 
     public void guardarVehiculo() {
-        try {
-            Vehiculo vehiculo = this.leerComponentes();
-            this.gestor.insertar(vehiculo);
-            this.ventanaMsg("Datos guardados con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException ex) {
-            this.ventanaMsg(ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
-        }
+        Vehiculo vehiculo = this.leerComponentes();
+        this.gestor.insertar(vehiculo);
+        this.ventanaMsg("Datos guardados con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
     }
 
     class ClickBotonGuardar implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
             guardarVehiculo();
+        }
+    }
+
+    class clickBotonsubir implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            subirImagen();
         }
     }
 }

@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class VentanEliminarVehiculo extends JDialog {
-    private Container contenedor;
+   private Container contenedor;
     private JPanel panelFiltro;
     private JScrollPane panelResultado;
     private JLabel lFiltro;

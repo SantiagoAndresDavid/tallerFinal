@@ -1,49 +1,40 @@
 package negocio;
 
-import dato.GestionUsuario;
-import dato.IAccesoUsuarios;
+
+import Exepciones.ExcepcionAcessoDatos;
+import dato.ArchivoUsuario;
+import dato.IAccesoUsuario;
 import dominio.Usuario;
 
-import java.io.IOException;
 import java.util.List;
 
 public class RegistroUsuarios {
-    private IAccesoUsuarios datos;
+    private IAccesoUsuario dato;
 
     public RegistroUsuarios() {
-        this.datos = new GestionUsuario();
+        this.dato = new ArchivoUsuario();
     }
 
-    public void insertar(Usuario usuario) throws IOException {
-
-        datos.insertarUsuario(usuario);
+    public void insertar(Usuario usuario) throws ExcepcionAcessoDatos {
+            dato.agregarUsuario(usuario);
     }
 
     public List<Usuario> leer() {
         try {
-            return datos.leerUsuario();
-        } catch (IOException e) {
-            e.printStackTrace();
+            return dato.leerUsuarios();
+        } catch (ExcepcionAcessoDatos excepcionAcessoDatos) {
+            excepcionAcessoDatos.printStackTrace();
         }
         return null;
     }
 
     public Usuario buscarPor(String buscar) {
         try {
-            return datos.buscarUsuario(buscar);
-        } catch (IOException e) {
-            e.printStackTrace();
+            return dato.mostrarUsuario(buscar);
+        } catch (ExcepcionAcessoDatos excepcionAcessoDatos) {
+            excepcionAcessoDatos.printStackTrace();
         }
-      return null;
-    }
-
-
-    public void eliminar(String buscar) {
-        try {
-            datos.eliminarUsuario(buscar);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return null;
     }
 
 }

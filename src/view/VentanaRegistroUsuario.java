@@ -1,5 +1,6 @@
 package view;
 
+import Exepciones.ExcepcionAcessoDatos;
 import dominio.Usuario;
 import negocio.RegistroUsuarios;
 
@@ -7,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+
 
 public class VentanaRegistroUsuario extends JDialog {
     private JTextField tusuario,tContraseña;
@@ -81,18 +82,14 @@ public class VentanaRegistroUsuario extends JDialog {
 
     public boolean insertar() {
         try {
-            String usuario = this.tusuario.getText();
+            String nombre = this.tusuario.getText();
             String contraseña = this.tContraseña.getText();
             String tipo = this.rAdmin.isSelected()?"Administrador":"Invitado";
-            Usuario usuario1 = new Usuario(usuario,contraseña,tipo);
-            try {
-                gestion.insertar(usuario1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Usuario usuario = new Usuario(nombre,contraseña,tipo);
+            gestion.insertar(usuario);
             this.ventanaMsg("Datos guardados con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (NumberFormatException e) {
-            this.ventanaMsg(e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ExcepcionAcessoDatos excepcionAcessoDatos) {
+            excepcionAcessoDatos.printStackTrace();
         }
         return false;
     }
@@ -107,6 +104,7 @@ public class VentanaRegistroUsuario extends JDialog {
         public void actionPerformed(ActionEvent ae) {
             insertar();
         }
-
     }
+
+
 }

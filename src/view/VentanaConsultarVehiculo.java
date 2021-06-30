@@ -53,7 +53,7 @@ public class VentanaConsultarVehiculo extends JDialog {
         this.panelFiltro.setLayout(new FlowLayout(FlowLayout.LEFT));
         this.tFiltro = new JTextField(10);
         this.bBuscar = new JButton("Buscar");
-        this.bBuscar.addActionListener(new ClickBotonGuardar());
+        this.bBuscar.addActionListener(new clickBotonBuscar());
 
         this.panelFiltro.add(this.lFiltro);
         this.panelFiltro.add(this.tFiltro);
@@ -87,19 +87,11 @@ public class VentanaConsultarVehiculo extends JDialog {
     }
 
     public void buscar() {
-        try {
-            String filtro = this.tFiltro.getText();
-            new VentanaPresentarVehiculo(null, true, filtro);
-        } catch (NumberFormatException e) {
-            this.ventanaMsg(e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        String filtro = this.tFiltro.getText();
+        new VentanaPresentarVehiculo(null, true, filtro);
     }
 
-    public void ventanaMsg(String msg, String titulo, int tipo) {
-        JOptionPane.showMessageDialog(this, msg, titulo, tipo);
-    }
-
-    class ClickBotonGuardar implements ActionListener {
+    class clickBotonBuscar implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
             buscar();

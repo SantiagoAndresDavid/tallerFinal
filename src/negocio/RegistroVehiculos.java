@@ -1,40 +1,42 @@
 package negocio;
 
-import dato.GestionUsuario;
-import dato.GestionVehiculo;
-import dato.IAccesoUsuarios;
-import dato.IAccesoVehiculos;
-import dominio.Usuario;
+
+import Exepciones.ExcepcionAcessoDatos;
+import dato.ArchivoVehiculo;
+import dato.IAccesoVehiculo;
 import dominio.Vehiculo;
 
-import java.io.IOException;
 import java.util.List;
 
 public class RegistroVehiculos {
-    private IAccesoVehiculos datos;
+    private final IAccesoVehiculo datos;
 
     public RegistroVehiculos() {
-        this.datos = new GestionVehiculo();
+        this.datos = new ArchivoVehiculo();
     }
 
-    public void insertar(Vehiculo vehiculo) throws IOException {
-        datos.insertarVehiculo(vehiculo);
+    public void insertar(Vehiculo vehiculo) {
+        try {
+            datos.agregarVehiculo(vehiculo);
+        } catch (ExcepcionAcessoDatos excepcionAcessoDatos) {
+            excepcionAcessoDatos.printStackTrace();
+        }
     }
 
     public List<Vehiculo> leer() {
         try {
             return datos.leerVehiculo();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (ExcepcionAcessoDatos excepcionAcessoDatos) {
+            excepcionAcessoDatos.printStackTrace();
         }
         return null;
     }
 
-    public Vehiculo buscarPor(String buscar) {
+    public Vehiculo buscarPor(String buscar)  {
         try {
-            return datos.buscarVehiculo(buscar);
-        } catch (IOException e) {
-            e.printStackTrace();
+            return datos.mostrarVehiculo(buscar);
+        } catch (ExcepcionAcessoDatos excepcionAcessoDatos) {
+            excepcionAcessoDatos.printStackTrace();
         }
         return null;
     }
@@ -42,9 +44,9 @@ public class RegistroVehiculos {
 
     public void eliminar(String buscar) {
         try {
-            datos.eliminarVehiculo(buscar);
-        } catch (IOException e) {
-            e.printStackTrace();
+            datos.borrarVehiculo(buscar);
+        } catch (ExcepcionAcessoDatos excepcionAcessoDatos) {
+            excepcionAcessoDatos.printStackTrace();
         }
     }
 

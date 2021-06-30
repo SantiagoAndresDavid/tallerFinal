@@ -1,5 +1,6 @@
 package dominio;
 
+import javax.swing.*;
 import java.io.Serializable;
 
 public class Vehiculo implements Serializable {
@@ -9,17 +10,19 @@ public class Vehiculo implements Serializable {
     private String modelo;
     private String año;
     private String disponibilidad;
+    private ImageIcon imageIcon;
 
     public Vehiculo() {
     }
 
-    public Vehiculo(String tipo, String nSerie, String nAsientos, String modelo, String año, String disponibilidad) {
+    public Vehiculo(String tipo, String nSerie, String nAsientos, String modelo, String año, String disponibilidad, ImageIcon imageIcon) {
         this.tipo = tipo;
         this.nSerie = nSerie;
         this.nAsientos = nAsientos;
         this.modelo = modelo;
         this.año = año;
         this.disponibilidad = disponibilidad;
+        this.imageIcon = imageIcon;
     }
 
     public String getTipo() {
@@ -70,8 +73,13 @@ public class Vehiculo implements Serializable {
         this.disponibilidad = disponibilidad;
     }
 
-    public String getDataText(){
-        return this.tipo+";"+this.nSerie+";"+this.nAsientos+";"+this.modelo+";"+this.año+";"+disponibilidad;
+
+    public ImageIcon getImageIcon() {
+        return imageIcon;
+    }
+
+    public void setImageIcon(ImageIcon imageIcon) {
+        this.imageIcon = imageIcon;
     }
 
     @Override

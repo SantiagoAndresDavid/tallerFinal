@@ -30,19 +30,12 @@ public class VentanaPresentarVehiculo extends JDialog {
         this.Contenedor = this.getContentPane();
         this.Contenedor.setLayout(new BorderLayout());
         this.Contenedor.setBackground(Color.WHITE);
-        if (vehiculo.getTipo().equalsIgnoreCase("carro")){
-             iniciarCarro();
-        }else if (vehiculo.getTipo().equalsIgnoreCase("camion")){
-            iniciarCamion();
-        }else if (vehiculo.getTipo().equalsIgnoreCase("moto")){
-            inicarMoto();
-        }else if (vehiculo.getTipo().equalsIgnoreCase("autobus")){
-            iniciarAutobus();
-        }
         iniciarPanelDatos(vehiculo);
     }
     public void iniciarPanelDatos(Vehiculo vehiculo) {
         this.panelDatos = new JPanel();
+        this.panelImg = new JPanel();
+        this.panelInfo = new JPanel(new FlowLayout(FlowLayout.CENTER));
         this.panelInfo = new JPanel(new FlowLayout(FlowLayout.CENTER));
         this.panelInfo.setBackground(Color.WHITE);
         this.panelDatos.setLayout(new GridLayout(7, 2, 10, 10));
@@ -54,6 +47,7 @@ public class VentanaPresentarVehiculo extends JDialog {
         this.lModelo = new JLabel("Modelo: ");
         this.lAño = new JLabel("Año: ");
         this.lDisponibilidad = new JLabel("Disponiblildad: ");
+        this.lImg = new JLabel(vehiculo.getImageIcon());
 
         this.tTipo = new JLabel(vehiculo.getTipo());
         this.tnSerie = new JLabel(vehiculo.getnSerie());
@@ -61,6 +55,7 @@ public class VentanaPresentarVehiculo extends JDialog {
         this.tModelo = new JLabel(vehiculo.getModelo());
         this.tAño = new JLabel(vehiculo.getAño());
         this.tDiponibilidad = new JLabel(vehiculo.getDisponibilidad());
+
 
         this.panelDatos.add(this.lTipo);
         this.panelDatos.add(this.tTipo);
@@ -79,55 +74,19 @@ public class VentanaPresentarVehiculo extends JDialog {
 
         this.panelDatos.add(this.lDisponibilidad);
         this.panelDatos.add(this.tDiponibilidad);
+
+
+
         panelDatos.setBackground(Color.WHITE);
-
         panelInfo.add(panelDatos);
-        this.Contenedor.add(this.panelInfo, BorderLayout.CENTER);
+
+        this.panelImg.add(lImg);
+        panelImg.setBackground(Color.WHITE);
+
+        this.Contenedor.add(this.panelInfo, BorderLayout.NORTH);
+        this.Contenedor.add(this.panelImg, BorderLayout.EAST);
     }
 
-    private void iniciarCarro(){
-        this.panelImg = new JPanel();
-        this.panelImg.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.panelImg.setBackground(Color.WHITE);
-        this.lImg = new JLabel();
-        this.lImg.setIcon(new ImageIcon("src/view/imagenes/carro.jpg"));
-        this.panelImg.add(this.lImg);
-        this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(this.panelImg, BorderLayout.SOUTH);
-    }
-
-    private void iniciarCamion(){
-        this.panelImg = new JPanel();
-        this.panelImg.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.panelImg.setBackground(Color.WHITE);
-        this.lImg = new JLabel();
-        this.lImg.setIcon(new ImageIcon("src/view/imagenes/camion.jpg"));
-        this.panelImg.add(this.lImg);
-        this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(this.panelImg, BorderLayout.SOUTH);
-    }
-
-    private void inicarMoto(){
-        this.panelImg = new JPanel();
-        this.panelImg.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.panelImg.setBackground(Color.WHITE);
-        this.lImg = new JLabel();
-        this.lImg.setIcon(new ImageIcon("src/view/imagenes/moto.jpg"));
-        this.panelImg.add(this.lImg);
-        this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(this.panelImg, BorderLayout.SOUTH);
-    }
-
-    private void iniciarAutobus(){
-        this.panelImg = new JPanel();
-        this.panelImg.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.panelImg.setBackground(Color.WHITE);
-        this.lImg = new JLabel();
-        this.lImg.setIcon(new ImageIcon("src/view/imagenes/autobus.jpg"));
-        this.panelImg.add(this.lImg);
-        this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(this.panelImg, BorderLayout.SOUTH);
-    }
 
 
 }

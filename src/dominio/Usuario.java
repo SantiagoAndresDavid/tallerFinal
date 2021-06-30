@@ -40,10 +40,6 @@ public class Usuario implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getDataText(){
-        return this.usuario+";"+this.Contraseña+";"+this.tipo;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +

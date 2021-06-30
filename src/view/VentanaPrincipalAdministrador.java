@@ -52,7 +52,7 @@ public class VentanaPrincipalAdministrador extends JFrame {
         this.panelBotones.setBackground(Color.WHITE);
         this.lSaludo = new JLabel("Bienvenido Usuario por favor eliga una opcion");
         this.panelSaludo.add(lSaludo);
-        this.bConsultar = new JButton("Consulta");
+        this.bConsultar = new JButton("Consultar");
         this.bConsultar.addActionListener(new ClickBotonBuscar());
         this.bConsultar.setEnabled(true);
         this.bEliminar = new JButton("Eliminar");
@@ -61,16 +61,14 @@ public class VentanaPrincipalAdministrador extends JFrame {
         this.bReguistrar = new JButton("Registrar");
         this.bReguistrar.addActionListener(new ClickBotonRegistrarVehiculo());
         this.bReguistrar.setEnabled(true);
-        this.bEditar = new JButton("Editar");
-        //this.bHablitar.addActionListener(new VentanaIngresarUsuario.ClickBotonRegistrar());
-        this.bEditar.setEnabled(true);
+
 
 
         panelBotones.add(panelSaludo);
         panelBotones.add(bConsultar);
         panelBotones.add(bEliminar);
         panelBotones.add(bReguistrar);
-        panelBotones.add(bEditar);
+
 
         this.contenedor.add(this.panelBotones, BorderLayout.CENTER);
 

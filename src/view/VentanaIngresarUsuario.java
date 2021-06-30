@@ -12,9 +12,9 @@ import java.io.IOException;
 
 public class VentanaIngresarUsuario extends JDialog {
     private JTextField tusuario, tContraseña;
-    private JLabel lUsuario, lcontraseña,lImg;
+    private JLabel lUsuario, lcontraseña, lImg;
     private JButton bIniciar, bregistrar;
-    private JPanel panelDatos,panelImg;
+    private JPanel panelDatos, panelImg;
     private Container contenedor;
     private RegistroUsuarios gestion;
 
@@ -40,7 +40,7 @@ public class VentanaIngresarUsuario extends JDialog {
 
     }
 
-    private void iniciarLogo(){
+    private void iniciarLogo() {
         this.panelImg = new JPanel();
         this.panelImg.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.panelImg.setBackground(Color.WHITE);
@@ -65,7 +65,7 @@ public class VentanaIngresarUsuario extends JDialog {
 
 
         this.tusuario = new JTextField(null);
-        this.tContraseña = new JTextField(null);
+        this.tContraseña = new JPasswordField(null);
 
         this.bIniciar = new JButton("Iniciar");
         this.bIniciar.addActionListener(new ClickBotonIniciar());
@@ -73,7 +73,6 @@ public class VentanaIngresarUsuario extends JDialog {
         this.bregistrar = new JButton("Registrar");
         this.bregistrar.addActionListener(new ClickBotonRegistrar());
         this.bregistrar.setEnabled(true);
-
 
 
         this.panelDatos.add(this.lUsuario);
@@ -90,14 +89,12 @@ public class VentanaIngresarUsuario extends JDialog {
     }
 
     public Usuario buscar() {
-        try {
-            String usuario = this.tusuario.getText();
-            Usuario usuario1 = gestion.buscarPor(usuario);
-            return usuario1;
-        } catch (NumberFormatException e) {
-            this.ventanaMsg(e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        String usuario = this.tusuario.getText();
+        Usuario usuario1 = gestion.buscarPor(usuario);
+        if(usuario1 == null){
+            System.out.println("el usuario no existe");
         }
-        return null;
+        return usuario1;
     }
 
     public void ventanaMsg(String msg, String titulo, int tipo) {
@@ -108,9 +105,9 @@ public class VentanaIngresarUsuario extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            if (buscar().getTipo().equals("Administrador")){
+            if (buscar().getTipo().equals("Administrador")) {
                 new VentanaPrincipalAdministrador();
-            }else {
+            } else {
                 new VentanaPrincipalInvitado();
             }
         }
@@ -118,7 +115,7 @@ public class VentanaIngresarUsuario extends JDialog {
 
     public boolean registrar() {
         try {
-            new VentanaRegistroUsuario(null,true);
+            new VentanaRegistroUsuario(null, true);
         } catch (NumberFormatException e) {
             this.ventanaMsg(e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
